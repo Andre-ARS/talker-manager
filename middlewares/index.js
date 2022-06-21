@@ -1,5 +1,5 @@
 const loginValidation = require('./loginValidationMiddleware');
-const tokenValidationMiddleware = require('./tokenValidationMiddleware');
+const validateTokenMiddleware = require('./validateTokenMiddleware');
 const validateTalkerMiddleware = require('./validateTalkerMiddleware');
 
-module.exports = { loginValidation, tokenValidationMiddleware, validateTalkerMiddleware };
+module.exports = { loginValidation, validateTokenMiddleware, validateTalkerMiddleware };

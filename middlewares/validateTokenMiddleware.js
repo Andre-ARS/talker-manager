@@ -1,4 +1,4 @@
-const tokenValidationMiddleware = (req, res, next) => {
+const validateTokenMiddleware = (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization) return res.status(401).json({ message: 'Token não encontrado' });
@@ -8,4 +8,4 @@ const tokenValidationMiddleware = (req, res, next) => {
   next();
 };
 
-module.exports = tokenValidationMiddleware;
+module.exports = validateTokenMiddleware;

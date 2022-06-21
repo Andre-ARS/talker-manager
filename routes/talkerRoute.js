@@ -1,16 +1,28 @@
 const express = require('express');
-const { tokenValidationMiddleware, validateTalkerMiddleware } = require('../middlewares');
-const { getTalkers, getTalkersById, addTalker, updateTalker, delTalker } = require('../services');
+const {
+  validateTokenMiddleware,
+  validateTalkerMiddleware,
+} = require('../middlewares');
+const {
+  getTalkers,
+  getTalkersById,
+  addTalker,
+  updateTalker,
+  delTalker,
+  searchTalker,
+} = require('../services');
 
 const talkersRoute = express.Router();
 
 talkersRoute.get('/', getTalkers);
 
-talkersRoute.get('/:id', getTalkersById);
+talkersRoute.get('/search', validateTokenMiddleware, searchTalker);
 
-talkersRoute.delete('/:id', tokenValidationMiddleware, delTalker);
+talkersRoute.get('/:id', getTalkersById, getTalkersById);
 
-talkersRoute.use(tokenValidationMiddleware, validateTalkerMiddleware);
+talkersRoute.delete('/:id', validateTokenMiddleware, delTalker);
+
+talkersRoute.use(validateTokenMiddleware, validateTalkerMiddleware);
 
 talkersRoute.post('/', addTalker);
 
