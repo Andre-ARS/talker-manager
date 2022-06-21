@@ -13,7 +13,7 @@ const addTalker = async (req, res) => {
   };
 
   const newList = [...talkersList, newTalker];
-  writeFile(path, newList);
+  await writeFile(path, newList);
 
   res.status(201).json(newTalker);
 };
