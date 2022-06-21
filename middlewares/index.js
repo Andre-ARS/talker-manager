@@ -1,3 +1,4 @@
-const loginValidation = require('./loginValidation');
+const loginValidation = require('./loginValidationMiddleware');
+const tokenValidationMiddleware = require('./tokenValidationMiddleware');
 
-module.exports = { loginValidation };
+module.exports = { loginValidation, tokenValidationMiddleware };

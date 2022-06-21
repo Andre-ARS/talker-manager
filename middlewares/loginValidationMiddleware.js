@@ -1,4 +1,4 @@
-const loginValidation = (req, res, next) => {
+const loginValidationMiddleware = (req, res, next) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const { email, password } = req.body;
   const emailIsValid = emailRegex.test(email);
@@ -18,4 +18,4 @@ const loginValidation = (req, res, next) => {
   next();
 };
 
-module.exports = loginValidation;
+module.exports = loginValidationMiddleware;

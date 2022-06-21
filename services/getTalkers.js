@@ -1,4 +1,4 @@
-const readFile = require('../helpers/readFile');
+const { readFile } = require('../helpers');
 
 const getTalkers = async (_req, res) => {
   const path = './talker.json';
