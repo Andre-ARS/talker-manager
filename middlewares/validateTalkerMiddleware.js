@@ -1,6 +1,6 @@
 const { validateName, validateAge, validateWhatchedAt, validateRate } = require('../validations');
 
-const newTalkerMiddleware = (req, res, next) => {
+const validateTalkerMiddleware = (req, res, next) => {
   const { name, age, talk } = req.body;
   try {
     validateName(name);
@@ -14,4 +14,4 @@ const newTalkerMiddleware = (req, res, next) => {
   }
 };
 
-module.exports = newTalkerMiddleware;
+module.exports = validateTalkerMiddleware;

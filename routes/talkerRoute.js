@@ -1,7 +1,6 @@
 const express = require('express');
-const { tokenValidationMiddleware } = require('../middlewares');
-const newTalkerMiddleware = require('../middlewares/newTalkerMiddleware');
-const { getTalkers, getTalkersById, addTalker } = require('../services');
+const { tokenValidationMiddleware, validateTalkerMiddleware } = require('../middlewares');
+const { getTalkers, getTalkersById, addTalker, updateTalker } = require('../services');
 
 const talkersRoute = express.Router();
 
@@ -9,6 +8,10 @@ talkersRoute.get('/', getTalkers);
 
 talkersRoute.get('/:id', getTalkersById);
 
-talkersRoute.post('/', tokenValidationMiddleware, newTalkerMiddleware, addTalker);
+talkersRoute.use(tokenValidationMiddleware, validateTalkerMiddleware);
+
+talkersRoute.post('/', addTalker);
+
+talkersRoute.put('/:id', updateTalker);
 
 module.exports = talkersRoute;
