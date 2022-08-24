@@ -18,3 +18,5 @@ app.use(router);
 app.listen(PORT, () => {
   console.log('Online na porta 3000');
 });
+
+module.exports = app;
