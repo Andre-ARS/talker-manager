@@ -18,7 +18,7 @@ talkersRoute.get('/', getTalkers);
 
 talkersRoute.get('/search', validateTokenMiddleware, searchTalker);
 
-talkersRoute.get('/:id', getTalkersById, getTalkersById);
+talkersRoute.get('/:id', getTalkersById);
 
 talkersRoute.delete('/:id', validateTokenMiddleware, delTalker);
 
