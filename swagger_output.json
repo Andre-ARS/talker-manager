@@ -1,0 +1,339 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Talker Manager",
+    "description": "API de um CRUD de palestrantes"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Login",
+      "description": "Login Endpoint"
+    },
+    {
+      "name": "Talker",
+      "description": "Talker Endpoints"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyAuth": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization",
+      "description": "Some description..."
+    } 
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/talker/": {
+      "get": {
+        "description": "Retorna todas as pessoas palestrantes",
+        "parameters": [],
+        "tags": ["Talker"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": { "$ref": "#/definitions/Talker" }
+          }
+        }
+      },
+      "post": {
+        "description": "Cria uma nova pessoa palestrante",
+        "tags": ["Talker"],
+        "security": [{
+          "apiKeyAuth": []
+        }],        
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "Henrique Albuquerque"
+                },
+                "age": {
+                  "example": 67
+                },
+                "talk": {
+                  "example": {
+                    "watchedAt": "23/10/2020",
+                    "rate": 5
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": { "$ref": "#/definitions/Talker" }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type":"object",
+              "properties": "message",
+              "example": {
+                "message": "O campo 'name' é obrigatório"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type":"object",
+              "properties": "message",
+              "example": {
+                "message": "Token não encontrado ou Token Inválido"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/talker/search?q={q}": {
+      "get": {
+        "description": "Retorna todos as pessoas palestrantes que tenham um certo termo no nome",
+        "security": [{
+          "apiKeyAuth": []
+        }],        
+        "parameters": [
+          {
+            "name": "q",
+            "in": "path"
+          }
+        ],
+        "tags": ["Talker"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Talker" }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type":"object",
+              "properties": "message",
+              "example": {
+                "message": "Token não encontrado ou Token Inválido"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/talker/{id}": {
+      "get": {
+        "description": "Retorna a pessoa palestrante cujo 'id' seja igual ao procurado",
+        "tags": ["Talker"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": { "$ref": "#/definitions/Talker" }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type":"object",
+              "properties": "message",
+              "example": {
+                "message": "Pessoa palestrante não encontrada"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Deleta uma pessoa palestrante",
+        "security": [{
+          "apiKeyAuth": []
+        }],        
+        "tags": ["Talker"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type":"object",
+              "properties": "message",
+              "example": {
+                "message": "Token não encontrado ou Token Inválido"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Atualiza os dados de uma passoa palestrante",
+        "security": [{
+          "apiKeyAuth": []
+        }],        
+        "tags": ["Talker"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": { "$ref": "#/definitions/Talker" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Talker" }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type":"object",
+              "properties": "message",
+              "example": {
+                "message": "O campo 'name' é obrigatório"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type":"object",
+              "properties": "message",
+              "example": {
+                "message": "Token não encontrado ou Token Inválido"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login/": {
+      "post": {
+        "description": "Valida os dados de login e retorna um token",
+        "tags": ["Login"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": { "$ref": "#/definitions/Login" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type":"object",
+              "properties": "token",
+              "example": {
+                "token": "83afb857c3bd96b0"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type":"object",
+              "properties": "message",
+              "example": {
+                "message": "O campo \"email\" é obrigatório"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Login": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "email@email.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "123456"
+        }
+      },
+      "required": [
+        "email",
+        "password"
+      ]
+    },
+    "Talker": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "Henrique Albuquerque"
+        },
+        "age": {
+          "type": "number",
+          "example": 67
+        },
+        "talk": {
+          "type": "object",
+          "properties": {
+            "watchedAt": {
+              "type": "string",
+              "example": "23/10/2020"
+            },
+            "rate": {
+              "type": "number",
+              "example": 5
+            }
+          },
+          "required": [
+            "watchedAt",
+            "rate"
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "age",
+        "talk"
+      ]
+    }
+  }
+}

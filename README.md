@@ -1,4 +1,3 @@
-
 # Projeto Talker Manager
 
 # Contexto
@@ -19,19 +18,16 @@ Back-end:
 git clone git@github.com:Andre-ARS/talker-manager.git
 ```
 
-
 > Dentro do diretório do projeto, instale as dependencias
 
 ```bash
 npm install
 ```
 
-
 > Rode a API
 
 ```bash
 npm start
 ```
-
 
 > Use o seu API client preferido e rode o endpoint na porta 3000 do seu localhost
